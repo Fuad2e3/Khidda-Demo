@@ -86,7 +86,7 @@ class KhiddaApp extends StatelessWidget {
             letterSpacing: 1.1,
           ),
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
