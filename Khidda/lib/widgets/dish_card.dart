@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/dish.dart';
 import '../providers/cart_provider.dart';
+import '../providers/wishlist_provider.dart';
 
 class DishCard extends StatelessWidget {
   final Dish dish;
@@ -12,10 +13,11 @@ class DishCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context, listen: false);
+    final wishlist = Provider.of<WishlistProvider>(context);
 
     return Card(
-      margin: const EdgeInsets.all(8.0),
-      elevation: 4,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: InkWell(
         onTap: onTap,
@@ -28,13 +30,27 @@ class DishCard extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
                   child: Image.network(
                     dish.imageUrl,
-                    height: 150,
+                    height: 180,
                     width: double.infinity,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Container(
-                      height: 150,
+                      height: 180,
                       color: Colors.grey[300],
                       child: const Icon(Icons.fastfood, size: 50),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      icon: Icon(
+                        wishlist.isFavorite(dish.id) ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.red,
+                      ),
+                      onPressed: () => wishlist.toggleFavorite(dish.id),
                     ),
                   ),
                 ),
@@ -69,7 +85,7 @@ class DishCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.between,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         dish.name,
@@ -79,7 +95,7 @@ class DishCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '\${dish.price.toStringAsFixed(2)}',
+                        '\$${dish.price.toStringAsFixed(2)}',
                         style: TextStyle(
                           fontSize: 16,
                           color: Theme.of(context).primaryColor,

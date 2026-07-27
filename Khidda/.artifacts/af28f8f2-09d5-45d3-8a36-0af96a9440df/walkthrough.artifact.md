@@ -1,35 +1,38 @@
-# Walkthrough - Khidda App Full Functionality
+# Walkthrough - Khidda App Mega Update
 
-I have successfully implemented the core functionalities for the Khidda app, transforming it from a static UI into a dynamic, feature-complete application.
+The Khidda app has been significantly upgraded with professional UI components and advanced features.
 
-## Key Changes
+## Major Enhancements
 
-### 1. State Management with Provider
-Implemented a robust `CartProvider` to manage the shopping cart globally.
-- [CartProvider](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/providers/cart_provider.dart) handles adding/removing items and calculating totals.
-- Integrated `MultiProvider` in [main.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/main.dart).
+### 1. Modern Home Screen
+The home screen now features:
+- **Promo Slider**: A beautiful auto-playing carousel for special offers.
+- **Category Selector**: Easy filtering for 'Biryani', 'Khichuri', and more.
+- **Live Search**: Find your favorite dishes instantly.
+- **Improved Layout**: Uses `CustomScrollView` for a smooth scrolling experience.
 
-### 2. Real Authentication Flow
-Connected the UI to the `AuthService`.
-- **SignUp**: Added [SignUpScreen](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/signup_screen.dart) for new user registration.
-- **Login**: Updated [LoginScreen](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/login_screen.dart) to use Firebase.
-    - *Note*: Added a demo bypass (demo@khidda.com / password123) for easier testing if Firebase isn't fully configured yet.
+### 2. User Profile & Personalization
+- **Profile Screen**: A dedicated area to see user info and navigate to history.
+- **Order History**: Track past orders and use the "Re-order" shortcut.
+- **Favorites (Wishlist)**: Tap the heart icon on any dish to save it for later.
 
-### 3. Dynamic Menu & Shopping Experience
-- **HomeScreen**: Now fetches data via `ApiService` and shows a cart badge.
-- **DishCard**: Added an "Add to Cart" button with snackbar confirmation.
-- **Checkout**: The [CheckoutScreen](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/checkout_screen.dart) now displays actual items from the cart and uses `PaymentService` for processing.
+### 3. Smart Checkout
+- **Promo Code System**: Enter `KHIDDA20` to get a 20% discount instantly.
+- **Detailed Summary**: Breakdown of subtotal, discount, and delivery fees.
 
-### 4. Code Quality & Testing
-- Fixed the broken [widget_test.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/test/widget_test.dart) to correctly verify the Khidda App's initial state.
+### 4. Technical Upgrades
+- **Multi-Provider Architecture**: Scalable state management for Cart, User, and Wishlist.
+- **Dependency Update**: Integrated `carousel_slider` for high-quality banners.
 
-## How to Test
+## How to Experience the Update
 
-1.  **Run the App**: Start the app on your emulator or device.
-2.  **Login**: Use `demo@khidda.com` with `password123` to enter the app.
-3.  **Browse & Add**: Tap the '+' button on any dish card. Notice the cart badge incrementing.
-4.  **Checkout**: Tap the cart icon to see your summary.
-5.  **Order**: Tap "Place Order" to simulate payment and start tracking your meal!
+1.  **Login**: Use `demo@khidda.com` to see your profile populated.
+2.  **Explore**: Use the **Search Bar** or **Categories** on the Home screen to filter the menu.
+3.  **Favorite**: Tap the heart icon on a 'Beef Biryani'.
+4.  **Discount**: Go to Checkout and apply the promo code `KHIDDA20`.
 
 > [!TIP]
-> To use real Firebase features, ensure you've added your `google-services.json` to `android/app/` and configured the Firebase project in the console.
+> The search and category filtering work together! You can select 'Biryani' and then search for 'Beef' within that category.
+
+> [!IMPORTANT]
+> To use the **Order History** link, navigate to your Profile (top-left icon on Home).

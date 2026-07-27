@@ -1,18 +1,17 @@
-# Tasks - Khidda App Functionality
+# Tasks - Khidda Mega Update
 
-- [x] `[x]` Core Infrastructure
-    - [x] Review `pubspec.yaml` dependencies
-    - [x] Update `lib/main.dart` (Firebase init & Providers)
-- [x] `[x]` State Management
-    - [x] Create `lib/providers/cart_provider.dart`
-- [x] `[x]` Authentication
-    - [x] Create `lib/screens/signup_screen.dart`
-    - [x] Update `lib/screens/login_screen.dart`
-- [x] `[x]` Menu & Cart UI
-    - [x] Update `lib/widgets/dish_card.dart` (Add to cart button)
-    - [x] Update `lib/screens/home_screen.dart` (Fetch data & Cart logic)
-- [x] `[x]` Checkout & Order Flow
-    - [x] Update `lib/screens/checkout_screen.dart` (Dynamic cart & Payment)
-- [x] `[x]` Verification
-    - [x] Fix `test/widget_test.dart`
-    - [x] Run tests
+- [x] `[x]` Phase 1: Infrastructure & Dependencies
+    - [x] Update `pubspec.yaml` (Add carousel_slider)
+    - [x] Create `lib/providers/user_provider.dart`
+    - [x] Create `lib/providers/wishlist_provider.dart`
+    - [x] Update `lib/main.dart` (MultiProvider config)
+- [x] `[x]` Phase 2: Home Screen Re-design
+    - [x] Create `lib/widgets/home_widgets.dart`
+    - [x] Update `lib/screens/home_screen.dart`
+- [x] `[x]` Phase 3: Profile & History
+    - [x] Create `lib/screens/profile_screen.dart`
+    - [x] Create `lib/screens/order_history_screen.dart`
+- [x] `[x]` Phase 4: Final Touches
+    - [x] Update `lib/widgets/dish_card.dart` (Favorites)
+    - [x] Update `lib/screens/checkout_screen.dart` (Promo code)
+    - [x] Link Login to UserProvider

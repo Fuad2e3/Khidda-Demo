@@ -1,68 +1,77 @@
-# Implementation Plan - Completing Khidda App Functionality
+# Implementation Plan - Khidda App Mega Update
 
-The Khidda app currently has a solid UI structure but many core functions are either missing, mocked, or incomplete. This plan aims to bridge those gaps to make the app fully functional.
+This plan covers the implementation of several major design and functional updates to the Khidda app to make it a world-class food delivery platform.
 
 ## User Review Required
 
 > [!IMPORTANT]
-> **Firebase Configuration**: The app refers to Firebase but the initialization is commented out. I will enable it, but it requires `google-services.json` (Android) and `GoogleService-Info.plist` (iOS) to be present in the respective directories to work in a real environment.
-> **Backend API**: The `ApiService` points to `localhost:3000`. I will implement error handling so the app gracefully falls back to mock data if the backend is unreachable.
-> **State Management**: I will introduce the `provider` package for simple and effective state management (specifically for the shopping cart).
+> **New Dependencies**: I will add `carousel_slider` for promotional banners and `flutter_localizations` for Bangla language support.
+> **Complex Logic**: Real-time map tracking requires a Google Maps API key. I will implement the UI for tracking, but live rider movement depends on a backend and API key.
+> **State Management**: I will expand the `MultiProvider` to handle User Profiles and Wishlists.
 
 ## Proposed Changes
 
-### Core Infrastructure
+### Phase 1: Home Screen Re-design & Enhancements
+Focus on making the main landing page more attractive and functional.
 
 #### [MODIFY] [pubspec.yaml](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/pubspec.yaml)
-- Add `provider` dependency for state management.
-- Ensure `firebase_core` and `firebase_auth` are correctly included.
+- Add `carousel_slider: ^5.0.0`
+- Add `flutter_localizations` under dependencies.
 
-#### [MODIFY] [main.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/main.dart)
-- Initialize Firebase properly.
-- Wrap `MaterialApp` with a `MultiProvider` to provide the `CartProvider` and `AuthProvider` to the entire app.
-
-### Authentication
-
-#### [NEW] [signup_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/signup_screen.dart)
-- Implement a screen for new users to register.
-
-#### [MODIFY] [login_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/login_screen.dart)
-- Integrate `AuthService` for real login.
-- Add navigation to the `SignUpScreen`.
-
-### State Management & Cart
-
-#### [NEW] [cart_provider.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/providers/cart_provider.dart)
-- Create a provider to manage cart items, totals, and clearing the cart.
-
-#### [MODIFY] [dish_card.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/dish_card.dart)
-- Add an "Add to Cart" button or icon.
-
-### Screen Enhancements
+#### [NEW] [home_widgets.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/home_widgets.dart)
+- `CategorySelector`: A horizontal scrolling list of food categories.
+- `PromoSlider`: A carousel for discount banners.
+- `SearchBar`: A functional search input for dishes.
 
 #### [MODIFY] [home_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/home_screen.dart)
-- Fetch dishes from `ApiService`.
-- Show a loading indicator while fetching.
-- Implement "Add to Cart" logic.
+- Integrate the new widgets into a `CustomScrollView` or a `ListView`.
+- Implement category filtering logic.
+
+---
+
+### Phase 2: User Profile & Personalization
+Allow users to manage their identity and see their history.
+
+#### [NEW] [user_provider.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/providers/user_provider.dart)
+- Manage user profile data (name, email, saved addresses).
+
+#### [NEW] [profile_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/profile_screen.dart)
+- Display user details and navigation to History/Favorites.
+
+#### [NEW] [order_history_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/order_history_screen.dart)
+- List previous orders with "Re-order" functionality.
+
+---
+
+### Phase 3: Advanced Features
+Adding "Wishlist" and "Promo Code" systems.
+
+#### [NEW] [wishlist_provider.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/providers/wishlist_provider.dart)
+- Manage a list of favorite dishes.
+
+#### [MODIFY] [dish_card.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/dish_card.dart)
+- Add a "Heart" icon to toggle favorites.
 
 #### [MODIFY] [checkout_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/checkout_screen.dart)
-- Display dynamic cart items instead of hardcoded ones.
-- Calculate totals based on the cart state.
-- Integrate `PaymentService` (mocked) during the "Place Order" process.
+- Add a Promo Code input field and discount logic.
 
-### Testing
+---
 
-#### [MODIFY] [widget_test.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/test/widget_test.dart)
-- Fix the broken smoke test to work with `KhiddaApp`.
+### Phase 4: Branding & Localization
+Final polish with Dark Mode and Bangla support.
+
+#### [MODIFY] [main.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/main.dart)
+- Configure `darkTheme`.
+- Set up `localizationsDelegates` and `supportedLocales` (English & Bengali).
 
 ## Verification Plan
 
 ### Automated Tests
-- Run `flutter test` to verify the fixed smoke test.
+- Run existing widget tests to ensure no regressions.
+- Add a new test for category filtering.
 
 ### Manual Verification
-1. **Login Flow**: Verify that the login screen attempts to use Firebase (or shows an error if not configured).
-2. **Cart Flow**: Add multiple items to the cart on `HomeScreen` and verify they appear on `CheckoutScreen`.
-3. **Checkout Flow**: Verify total calculation and navigation to `OrderTrackingScreen`.
-4. **Order Tracking**: Step through the demo stages and verify navigation to `FeedbackScreen`.
-5. **Feedback**: Submit feedback and verify navigation back to Home.
+1. **Home UI**: Check if the Carousel and Categories look good.
+2. **Filtering**: Tap 'Biryani' and verify only biryani dishes show up.
+3. **Wishlist**: Add an item to favorites and check if it persists.
+4. **Localization**: Switch phone language to Bangla and check if UI strings update (where implemented).

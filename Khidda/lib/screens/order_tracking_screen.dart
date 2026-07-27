@@ -5,7 +5,7 @@ class OrderTrackingScreen extends StatefulWidget {
   const OrderTrackingScreen({super.key});
 
   @override
-  _OrderTrackingScreenState createState() => _OrderTrackingScreenState();
+  State<OrderTrackingScreen> createState() => _OrderTrackingScreenState();
 }
 
 class _OrderTrackingScreenState extends State<OrderTrackingScreen> {

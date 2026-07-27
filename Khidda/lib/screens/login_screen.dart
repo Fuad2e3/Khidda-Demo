@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../widgets/custom_button.dart';
 import '../services/auth_service.dart';
+import '../providers/user_provider.dart';
+import '../models/user.dart';
 import 'home_screen.dart';
 import 'signup_screen.dart';
 
@@ -8,7 +10,7 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -29,10 +31,18 @@ class _LoginScreenState extends State<LoginScreen> {
     
     // Attempt real login
     final result = await _authService.signIn(_emailController.text, _passwordController.text);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     
     // For demo/development purposes: if Firebase is not configured or fails, 
     // we allow login with 'demo@khidda.com' / 'password123'
     if (result != null || (_emailController.text == 'demo@khidda.com' && _passwordController.text == 'password123')) {
+      // Set dummy user profile for demo
+      userProvider.setUser(UserProfile(
+        uid: result?.user?.uid ?? 'demo_uid',
+        email: _emailController.text,
+        name: 'Khidda User',
+      ));
+
       if (!mounted) return;
       Navigator.pushReplacement(
         context,

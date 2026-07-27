@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 class PaymentService {
@@ -14,12 +15,12 @@ class PaymentService {
       // 3. Present the Payment Sheet to the user
 
       // This is a placeholder for the integration flow
-      print("Processing payment of \$amount");
+      debugPrint("Processing payment of \$amount");
       
       // Mocking successful payment
       return true;
     } catch (e) {
-      print("Payment failed: \$e");
+      debugPrint("Payment failed: $e");
       return false;
     }
   }

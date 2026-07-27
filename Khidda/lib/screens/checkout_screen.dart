@@ -14,7 +14,24 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final PaymentService _paymentService = PaymentService();
+  final TextEditingController _promoController = TextEditingController();
   bool _isProcessing = false;
+  double _discount = 0.0;
+
+  void _applyPromo() {
+    if (_promoController.text.toUpperCase() == 'KHIDDA20') {
+      setState(() {
+        _discount = 0.20; // 20% discount
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Promo code applied: 20% OFF'), backgroundColor: Colors.green),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Invalid promo code'), backgroundColor: Colors.red),
+      );
+    }
+  }
 
   void _placeOrder(CartProvider cart) async {
     if (cart.itemCount == 0) {
@@ -26,8 +43,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
     setState(() => _isProcessing = true);
     
+    double subtotal = cart.totalAmount;
+    double discountAmount = subtotal * _discount;
+    double total = subtotal - discountAmount + 2.50;
+
     // Process Payment
-    final success = await _paymentService.processPayment(cart.totalAmount + 2.50);
+    final success = await _paymentService.processPayment(total);
     
     if (success) {
       cart.clear(); // Clear cart on success
@@ -48,6 +69,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
+    double subtotal = cart.totalAmount;
+    double discountAmount = subtotal * _discount;
+    double total = subtotal - discountAmount + 2.50;
 
     return Scaffold(
       appBar: AppBar(
@@ -64,7 +88,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               'Order Summary',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             Expanded(
               child: Card(
                 child: Padding(
@@ -77,7 +101,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           itemBuilder: (ctx, i) {
                             final item = cart.items.values.toList()[i];
                             return ListTile(
-                              title: Text(item.dish.name),
+                              title: Text(item.dish.name, style: const TextStyle(fontWeight: FontWeight.w500)),
                               subtitle: Text('Qty: ${item.quantity}'),
                               trailing: Text('\$${(item.dish.price * item.quantity).toStringAsFixed(2)}'),
                             );
@@ -85,27 +109,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         ),
                       ),
                       const Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.between,
-                        children: [
-                          const Text('Subtotal'),
-                          Text('\$${cart.totalAmount.toStringAsFixed(2)}'),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.between,
-                        children: [
-                          Text('Delivery Fee'),
-                          Text('\$2.50'),
-                        ],
-                      ),
+                      _buildPriceRow('Subtotal', subtotal),
+                      if (_discount > 0)
+                        _buildPriceRow('Discount (20%)', -discountAmount, color: Colors.red),
+                      _buildPriceRow('Delivery Fee', 2.50),
                       const Divider(),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.between,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text('Total', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                          Text('\$${(cart.totalAmount + 2.50).toStringAsFixed(2)}', 
+                          Text('\$${total.toStringAsFixed(2)}', 
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.green)),
                         ],
                       ),
@@ -113,6 +126,29 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                 ),
               ),
+            ),
+            const SizedBox(height: 16),
+            const Text('Promo Code', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _promoController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter code (e.g. KHIDDA20)',
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: _applyPromo,
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green, foregroundColor: Colors.white),
+                  child: const Text('Apply'),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             const Text(
@@ -146,6 +182,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildPriceRow(String label, double amount, {Color color = Colors.black87}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(color: color)),
+          Text(
+            '${amount < 0 ? "-" : ""}\$${amount.abs().toStringAsFixed(2)}',
+            style: TextStyle(color: color, fontWeight: color == Colors.red ? FontWeight.bold : FontWeight.normal),
+          ),
+        ],
       ),
     );
   }
