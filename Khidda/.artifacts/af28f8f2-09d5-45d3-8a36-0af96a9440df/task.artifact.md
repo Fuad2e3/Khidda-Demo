@@ -1,16 +1,14 @@
-# Tasks - Khidda "Premium Engagement" Update
+# Tasks - Khidda Premium Design Refinement
 
-- [x] `[x]` Phase 1: Persistence & Onboarding
-    - [x] Update `pubspec.yaml` (shared_preferences)
-    - [x] Create `lib/screens/onboarding_screen.dart`
-    - [x] Update `lib/main.dart` (Init prefs & Onboarding logic)
-- [x] `[x]` Phase 2: Visual Delight (Parallax)
-    - [x] Update `lib/widgets/dish_card.dart` (Parallax scroll effect)
-- [x] `[x]` Phase 3: Smart Notification Center
-    - [x] Create `lib/providers/notification_provider.dart`
-    - [x] Create `lib/screens/notification_screen.dart`
-    - [x] Update `lib/screens/home_screen.dart` (Bell icon & Badge)
-- [x] `[x]` Phase 4: Verification & Bug Fixing
-    - [x] Fix compilation errors in Profile & Detail screens
-    - [x] Update `test/widget_test.dart` for new providers
-    - [x] Run full test suite (All Passed)
+- [ ] `[/]` Phase 1: Typography & Global Theme
+    - [x] Update `pubspec.yaml` (google_fonts)
+    - [ ] Update `lib/main.dart` (GoogleFonts & refined ColorScheme)
+- [ ] `[ ]` Phase 2: Modernized Components
+    - [ ] Update `lib/widgets/custom_button.dart` (Gradients & splashes)
+    - [ ] Update `lib/widgets/dish_card.dart` (Softer shadows)
+- [ ] `[ ]` Phase 3: Screen Polish
+    - [ ] Update `lib/widgets/home_widgets.dart` (Modern categories & slider)
+    - [ ] Update `lib/screens/login_screen.dart` (Background gradient)
+    - [ ] Update `lib/screens/signup_screen.dart` (Background gradient)
+- [ ] `[ ]` Phase 4: Navigation Refinement
+    - [ ] Update `lib/screens/main_screen.dart` (Polished BottomNav)

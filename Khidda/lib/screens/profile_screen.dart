@@ -8,6 +8,7 @@ import 'wishlist_screen.dart';
 import 'address_screen.dart';
 import 'wallet_screen.dart';
 import 'admin_dashboard.dart';
+import 'order_tracking_screen.dart';
 import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -88,6 +89,13 @@ class ProfileScreen extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Language Toggled (English/Bangla)')),
                 );
+              },
+            ),
+            _buildProfileItem(
+              icon: Icons.map_outlined,
+              title: 'Live Tracking (Demo)',
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const OrderTrackingScreen()));
               },
             ),
             _buildProfileItem(

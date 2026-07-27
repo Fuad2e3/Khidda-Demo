@@ -17,17 +17,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnboardingItem(
       title: 'Authentic Taste',
       description: 'Experience the real Bangladeshi flavors at your doorstep in Canada.',
-      image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1563379091339-03b21ef4a4f8?q=80&w=1000',
     ),
     OnboardingItem(
       title: 'Fast & Secure Delivery',
       description: 'Our riders ensure your meal arrives hot and fresh, every single time.',
-      image: 'https://images.unsplash.com/photo-1526367790999-0150786486a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1526367790999-0150786486a9?q=80&w=1000',
     ),
     OnboardingItem(
       title: 'Easy Payments',
       description: 'Seamless checkout experience with local and international payment methods.',
-      image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1556742049-1447e06005ff?q=80&w=1000',
     ),
   ];
 
@@ -54,7 +54,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               return Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.network(_pages[index].image, fit: BoxFit.cover),
+                  Image.network(
+                    _pages[index].image, 
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      color: Colors.grey[800],
+                      child: const Icon(Icons.broken_image, color: Colors.white24, size: 50),
+                    ),
+                  ),
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(

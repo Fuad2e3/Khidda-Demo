@@ -21,7 +21,7 @@ void main() {
           ChangeNotifierProvider(create: (_) => SettingsProvider()),
           ChangeNotifierProvider(create: (_) => NotificationProvider()),
         ],
-        child: const KhiddaApp(showOnboarding: false),
+        child: KhiddaApp(showOnboarding: false),
       ),
     );
     

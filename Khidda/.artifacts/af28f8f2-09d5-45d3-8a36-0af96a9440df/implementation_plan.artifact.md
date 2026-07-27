@@ -1,61 +1,59 @@
-# Implementation Plan - Khidda "Premium Engagement" Update
+# Implementation Plan - Premium Design Refinement
 
-This plan focuses on enhancing user retention and visual delight through an onboarding experience, parallax animations, and a smart notification hub.
+This plan focuses on a complete visual overhaul of the Khidda app to give it a modern, high-end "Silicon Valley" aesthetic while retaining its Bangladeshi heritage.
 
 ## User Review Required
 
 > [!IMPORTANT]
-> **New Dependency**: I will add `shared_preferences: ^2.2.0` to track if the onboarding has been completed.
-> **Visual Assets**: For the onboarding screens, I will use high-quality network images related to Bangladeshi food and delivery services.
+> **Google Fonts**: I will add `google_fonts: ^6.2.1` to provide professional typography (Poppins).
+> **UI Overhaul**: This will change the look of buttons, cards, and input fields globally.
 
 ## Proposed Changes
 
-### Phase 1: Persistence & Onboarding
-Ensure new users get a warm welcome and understand the app's value.
+### 1. Typography & Global Theme
 
 #### [MODIFY] [pubspec.yaml](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/pubspec.yaml)
-- Add `shared_preferences: ^2.2.0`.
-
-#### [NEW] [onboarding_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/onboarding_screen.dart)
-- 3 slides: "Authentic Taste" -> "Fast Delivery" -> "Easy Payment".
-- Smooth transition animations using `PageView`.
-- "Get Started" button that saves the completion state.
+- Add `google_fonts: ^6.2.1`.
 
 #### [MODIFY] [main.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/main.dart)
-- Update `main()` to initialize `SharedPreferences` and pass the `showOnboarding` flag to the app root.
+- Update `ThemeData` to use `GoogleFonts.poppinsTextTheme()`.
+- Refine `ColorScheme` for better contrast and vibrancy.
 
 ---
 
-### Phase 2: Visual Delight (Parallax)
-Make the scrolling experience feel deep and high-end.
+### 2. Modernized Components
+
+#### [MODIFY] [custom_button.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/custom_button.dart)
+- Add subtle gradients.
+- Improve elevation and splash effects.
 
 #### [MODIFY] [dish_card.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/dish_card.dart)
-- Implement a parallax effect on the dish images. As the user scrolls the list, the image moves slightly within its frame at a different speed.
+- Implement softer shadows (`blurRadius: 20`).
+- Improve internal padding and text hierarchy.
 
 ---
 
-### Phase 3: Smart Notification Center
-A dedicated hub for promotions, order updates, and system alerts.
+### 3. Screen Polish
 
-#### [NEW] [notification_provider.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/providers/notification_provider.dart)
-- Manage a list of `NotificationModel` items.
-- Support "Mark as read" and "Clear all" logic.
+#### [MODIFY] [home_widgets.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/home_widgets.dart)
+- **CategorySelector**: Modernize the pills with glassmorphism-inspired effects.
+- **PromoSlider**: Enhance text overlays with better typography and "Shop Now" micro-buttons.
 
-#### [NEW] [notification_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/notification_screen.dart)
-- A clean, categorized list of messages.
-- Different icons for "Promotion", "Order", and "System" alerts.
+#### [MODIFY] [login_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/login_screen.dart) & [signup_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/signup_screen.dart)
+- Use a soft background gradient.
+- Modernize input fields with subtle borders and icons.
 
-#### [MODIFY] [home_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/home_screen.dart)
-- Add a Bell icon to the AppBar with a dynamic badge (e.g. "3") showing unread counts.
+---
+
+### 4. Navigation Refinement
+
+#### [MODIFY] [main_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/main_screen.dart)
+- Polish the `BottomNavigationBar` with better active/inactive contrast and subtle scaling animations.
 
 ## Verification Plan
 
-### Automated Tests
-- Test `NotificationProvider` for correct unread count logic.
-- Verify that `Main` chooses the correct starting screen based on the preference flag.
-
 ### Manual Verification
-1. **Fresh Launch**: Uninstall/Reset app and verify the Onboarding slides appear.
-2. **Scrolling**: Scroll the home menu and observe the "floating" movement of images inside the cards (Parallax).
-3. **Notifications**: Open the Notification screen, mark an item as read, and verify the badge on the Home screen updates.
-4. **Theme**: Verify that the new screens (Onboarding/Notifications) support both Light and Dark modes.
+1. **Typography Check**: Ensure Poppins is applied consistently across all screens.
+2. **Contrast Check**: Verify that text is easily readable on both Light and Dark modes.
+3. **Card Aesthetics**: Scroll through the home screen and ensure the new dish cards feel "Premium".
+4. **Login Experience**: Test the new login flow and ensure it feels welcoming.

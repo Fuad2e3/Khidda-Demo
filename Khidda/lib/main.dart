@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'screens/login_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -64,43 +65,67 @@ class KhiddaApp extends StatelessWidget {
         Locale('bn'),
       ],
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
-          primary: Colors.green,
-          secondary: Colors.amber,
-          surface: Colors.grey[50],
-        ),
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.grey[50],
-        appBarTheme: const AppBarTheme(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF2E7D32),
+          primary: const Color(0xFF2E7D32),
+          secondary: const Color(0xFFFFB300),
+          surface: Colors.white,
+          background: const Color(0xFFF8F9FA),
+        ),
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+        scaffoldBackgroundColor: const Color(0xFFF8F9FA),
+        appBarTheme: AppBarTheme(
           centerTitle: true,
           elevation: 0,
-          backgroundColor: Colors.green,
+          backgroundColor: const Color(0xFF2E7D32),
           foregroundColor: Colors.white,
-          titleTextStyle: TextStyle(
+          titleTextStyle: GoogleFonts.poppins(
             fontSize: 20,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1.2,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1.1,
           ),
         ),
-        cardTheme: CardThemeData(
-          elevation: 2,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        cardTheme: CardTheme(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
+          ),
+          color: Colors.white,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+          ),
         ),
       ),
       darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
-          brightness: Brightness.dark,
-          primary: Colors.green,
-          secondary: Colors.amber,
-        ),
         useMaterial3: true,
-        appBarTheme: const AppBarTheme(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF2E7D32),
+          brightness: Brightness.dark,
+          primary: const Color(0xFF43A047),
+          secondary: const Color(0xFFFFC107),
+          surface: const Color(0xFF1E1E1E),
+          background: const Color(0xFF121212),
+        ),
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme).apply(
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        ),
+        appBarTheme: AppBarTheme(
           centerTitle: true,
           elevation: 0,
-          backgroundColor: Color(0xFF1B5E20),
+          backgroundColor: const Color(0xFF1B5E20),
           foregroundColor: Colors.white,
+          titleTextStyle: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1.1,
+          ),
         ),
       ),
       home: showOnboarding ? const OnboardingScreen() : const LoginScreen(),
