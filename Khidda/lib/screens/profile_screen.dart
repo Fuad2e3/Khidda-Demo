@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../services/auth_service.dart';
 import 'order_history_screen.dart';
+import 'wishlist_screen.dart';
 import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -57,7 +58,9 @@ class ProfileScreen extends StatelessWidget {
             _buildProfileItem(
               icon: Icons.favorite_border,
               title: 'My Favorites',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const WishlistScreen()));
+              },
             ),
             _buildProfileItem(
               icon: Icons.location_on_outlined,

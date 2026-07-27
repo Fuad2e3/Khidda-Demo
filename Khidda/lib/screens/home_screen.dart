@@ -3,10 +3,12 @@ import 'package:provider/provider.dart';
 import '../models/dish.dart';
 import '../widgets/dish_card.dart';
 import '../widgets/home_widgets.dart';
+import '../widgets/shimmer_widgets.dart';
 import '../services/api_service.dart';
 import '../providers/cart_provider.dart';
 import 'checkout_screen.dart';
 import 'profile_screen.dart';
+import 'dish_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -101,12 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('KHIDDA', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2)),
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.person_outline),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
-          },
-        ),
+        centerTitle: true,
         actions: [
           Consumer<CartProvider>(
             builder: (_, cart, ch) => Badge(
@@ -124,56 +121,68 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(width: 8),
         ],
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
-              onRefresh: _fetchMenu,
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 16),
-                        const PromoSlider(),
-                        const SizedBox(height: 16),
-                        HomeSearchBar(onChanged: (val) {
-                          _searchQuery = val;
-                          _applyFilters();
-                        }),
-                        const SizedBox(height: 16),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text('Categories', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        ),
-                        const SizedBox(height: 12),
-                        CategorySelector(onCategorySelected: (cat) {
-                          _selectedCategory = cat;
-                          _applyFilters();
-                        }),
-                        const SizedBox(height: 16),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text('Popular Near You', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        ),
-                      ],
-                    ),
+      body: RefreshIndicator(
+        onRefresh: _fetchMenu,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16),
+                  const PromoSlider(),
+                  const SizedBox(height: 16),
+                  HomeSearchBar(onChanged: (val) {
+                    _searchQuery = val;
+                    _applyFilters();
+                  }),
+                  const SizedBox(height: 16),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('Categories', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
-                  SliverPadding(
+                  const SizedBox(height: 12),
+                  CategorySelector(onCategorySelected: (cat) {
+                    _selectedCategory = cat;
+                    _applyFilters();
+                  }),
+                  const SizedBox(height: 16),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('Popular Near You', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  ),
+                ],
+              ),
+            ),
+            _isLoading
+                ? SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => const DishCardShimmer(),
+                      childCount: 3,
+                    ),
+                  )
+                : SliverPadding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) => DishCard(
                           dish: _filteredDishes[index],
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DishDetailScreen(dish: _filteredDishes[index]),
+                              ),
+                            );
+                          },
                         ),
                         childCount: _filteredDishes.length,
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import '../widgets/custom_button.dart';
 import '../providers/cart_provider.dart';
 import '../services/payment_service.dart';
 import 'order_tracking_screen.dart';
+import 'order_success_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -55,7 +56,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const OrderTrackingScreen()),
+        MaterialPageRoute(builder: (context) => const OrderSuccessScreen()),
       );
     } else {
       if (!mounted) return;
@@ -79,11 +80,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: cart.itemCount == 0
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.shopping_cart_outlined, size: 80, color: Colors.grey[300]),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Your cart is empty',
+                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                  ),
+                ],
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
             const Text(
               'Order Summary',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
