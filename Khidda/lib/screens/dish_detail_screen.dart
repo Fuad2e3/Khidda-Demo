@@ -133,7 +133,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                         });
                       },
                       contentPadding: EdgeInsets.zero,
-                      controlType: ListTileControlAffinity.leading,
+                      controlAffinity: ListTileControlAffinity.leading,
                     );
                   }),
                   const SizedBox(height: 24),

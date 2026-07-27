@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
+import '../providers/settings_provider.dart';
 import '../services/auth_service.dart';
 import 'order_history_screen.dart';
 import 'wishlist_screen.dart';
 import 'address_screen.dart';
 import 'wallet_screen.dart';
+import 'admin_dashboard.dart';
 import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -81,7 +83,19 @@ class ProfileScreen extends StatelessWidget {
             _buildProfileItem(
               icon: Icons.settings_outlined,
               title: 'Settings',
-              onTap: () {},
+              onTap: () {
+                context.read<SettingsProvider>().toggleLanguage();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Language Toggled (English/Bangla)')),
+                );
+              },
+            ),
+            _buildProfileItem(
+              icon: Icons.admin_panel_settings_outlined,
+              title: 'Admin Dashboard',
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminDashboard()));
+              },
             ),
             const Divider(),
             _buildProfileItem(

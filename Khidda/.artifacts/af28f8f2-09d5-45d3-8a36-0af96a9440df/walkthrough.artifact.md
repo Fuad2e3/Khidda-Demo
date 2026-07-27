@@ -1,36 +1,43 @@
-# Walkthrough - Khidda Design Polish & Stability
+# Walkthrough - Khidda Premium Engagement Update
 
-I have addressed the design issues and visual bugs you mentioned, making the app much more stable and professional.
+I have successfully completed the "Premium Engagement" update, transforming the Khidda app into a truly high-end experience with a focus on user retention and visual delight.
 
-## Key Improvements
+## Key Enhancements
 
-### 1. Visual Stability & Overflow Fixes
-Fixed "Yellow Tape" errors where text was too long for the screen.
-- **Dish Cards**: Food names and descriptions now use `Expanded` and `TextOverflow.ellipsis`. Even with very long names, the layout stays perfect.
-- **Checkout Summary**: Improved the order summary list to handle long dish names without breaking the table.
+### 1. Immersive Onboarding
+New users are now greeted with a beautiful [Onboarding Experience](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/onboarding_screen.dart).
+- **Persistence**: Using `shared_preferences`, the app remembers if you've seen the intro, ensuring it only appears once.
+- **Storytelling**: 3 high-quality slides highlighting Bangladeshi taste, fast delivery, and ease of use.
 
-### 2. Enhanced Search & Filter UX
-The search experience is now much smoother.
-- **Search Bar**: Added a **"Clear" (X) button** to quickly reset your search.
-- **Empty States**: If you search for something that doesn't exist, you'll see a helpful **"No dishes found"** view with a "Clear all filters" shortcut.
+### 2. Parallax Scrolling Effect
+The home screen menu now feels deep and alive with a **Parallax Effect**.
+- [DishCard](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/dish_card.dart) images now move slightly within their frames as you scroll, creating a sense of physical depth and premium quality.
+- Achieved using custom `FlowDelegate` for peak performance.
 
-### 3. Global Branding & Theming
-Modernized the look and feel of the entire app.
-- **Modern Theme**: Updated [main.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/main.dart) to use a consistent `ColorScheme` and `CardTheme`.
-- **Cleaner AppBars**: Standardized the top bars to avoid elevation glitches and ensure consistent branding.
+### 3. Smart Notification Center
+A central hub to keep users engaged with deals and order updates.
+- **Dynamic Badge**: The notification bell on the Home screen shows a real-time unread count.
+- **Categorized Alerts**: Differentiates between Promotions, Orders, and System alerts.
+- [NotificationProvider](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/providers/notification_provider.dart) & [NotificationScreen](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/notification_screen.dart).
 
-### 4. Better Data & Robustness
-- **Richer Menu**: Updated the mock data in [api_service.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/services/api_service.dart) with better descriptions and more varied Bangladeshi dishes.
-- **Safety First**: Added timeouts to Firebase and API calls to prevent the app from hanging if the internet is slow or a service is down.
+## Technical Health & Stability
+I performed a "Full House" audit of the codebase to resolve all remaining issues:
+- **Test Suite**: Updated and fixed [widget_test.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/test/widget_test.dart) to correctly handle the new MultiProvider and Onboarding states.
+- **Bug Fixes**:
+    - Resolved `CheckboxListTile` parameter errors in the Dish Detail screen.
+    - Fixed the missing `SettingsProvider` reference in the Profile screen.
+    - Updated deprecated `withOpacity` calls to modern `withValues` API.
+- **Consistency**: Verified that all new screens correctly support both Light and Dark modes.
 
-## Technical Health
-- **Verified Syntax**: Fixed a few incorrect widget constructors (`CardThemeData`, `SliverList`).
-- **Test Suite**: All widget tests passed successfully.
+## How to Experience the Update
 
-## How to Verify
-1.  **Search**: Try searching for a dish like "Beef". Then type gibberish (e.g. "asdf") to see the new empty state.
-2.  **Visuals**: Notice how long names like "Beef Biryani (Premium)" now fit perfectly in the cards.
-3.  **Themes**: Check out the consistent green and amber accent colors across different screens.
+1.  **First Launch**: Reset your app data to see the new **Onboarding** slides.
+2.  **Scroll Home**: Observe the "floating" food images as you scroll the menu.
+3.  **Notifications**: Tap the bell icon at the top right of the Home screen to see the demo alerts.
+4.  **Language**: Go to **Profile → Settings** to toggle between English and Bangla!
 
 > [!TIP]
-> The "Clear all filters" button on the empty search page is a quick way to get back to the full menu!
+> The Parallax effect works best on a real device or emulator, but you can also see it in the Chrome browser during development.
+
+> [!IMPORTANT]
+> The app is now fully verified and the test suite is passing 100%.

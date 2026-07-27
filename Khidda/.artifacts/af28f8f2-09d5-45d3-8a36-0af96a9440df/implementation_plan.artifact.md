@@ -1,74 +1,61 @@
-# Implementation Plan - Khidda "Full House" Production Update
+# Implementation Plan - Khidda "Premium Engagement" Update
 
-This ambitious plan will integrate ALL remaining professional features discussed to make Khidda a complete, production-ready platform.
+This plan focuses on enhancing user retention and visual delight through an onboarding experience, parallax animations, and a smart notification hub.
 
 ## User Review Required
 
-> [!WARNING]
-> **Firebase & APIs**: Real features like Push Notifications, Live Tracking (Google Maps), and Real Stripe Payments require active server-side logic and valid API keys. I will implement the **App-side logic and UI**, but they will function in "Simulation Mode" until you provide real keys.
-> **Complexity**: This update involves a major overhaul of almost every screen and the introduction of new state providers.
+> [!IMPORTANT]
+> **New Dependency**: I will add `shared_preferences: ^2.2.0` to track if the onboarding has been completed.
+> **Visual Assets**: For the onboarding screens, I will use high-quality network images related to Bangladeshi food and delivery services.
 
 ## Proposed Changes
 
-### Phase 1: Personalization (Bangla & Dark Mode)
-Making the app accessible and modern.
+### Phase 1: Persistence & Onboarding
+Ensure new users get a warm welcome and understand the app's value.
+
+#### [MODIFY] [pubspec.yaml](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/pubspec.yaml)
+- Add `shared_preferences: ^2.2.0`.
+
+#### [NEW] [onboarding_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/onboarding_screen.dart)
+- 3 slides: "Authentic Taste" -> "Fast Delivery" -> "Easy Payment".
+- Smooth transition animations using `PageView`.
+- "Get Started" button that saves the completion state.
 
 #### [MODIFY] [main.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/main.dart)
-- Set up `localizationsDelegates` for English and Bangla.
-- Add `darkTheme` configuration.
-- Introduce `SettingsProvider` to toggle language and theme globally.
-
-#### [NEW] [l10n.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/utils/l10n.dart)
-- Create a simple translation map for core strings (Home, Order, Profile, etc.).
+- Update `main()` to initialize `SharedPreferences` and pass the `showOnboarding` flag to the app root.
 
 ---
 
-### Phase 2: Order Customization & Address Book
-Improving the ordering flow.
+### Phase 2: Visual Delight (Parallax)
+Make the scrolling experience feel deep and high-end.
 
-#### [MODIFY] [dish_detail_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/dish_detail_screen.dart)
-- Add "Customization" section (Checkboxes for Extra Rice, Spicy Level radio buttons).
-- Pass these choices into the `CartProvider`.
-
-#### [NEW] [address_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/address_screen.dart)
-- Screen to manage "Home", "Office", and "Other" addresses.
+#### [MODIFY] [dish_card.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/dish_card.dart)
+- Implement a parallax effect on the dish images. As the user scrolls the list, the image moves slightly within its frame at a different speed.
 
 ---
 
-### Phase 3: Financials (Real Stripe & Wallet)
+### Phase 3: Smart Notification Center
+A dedicated hub for promotions, order updates, and system alerts.
 
-#### [MODIFY] [payment_service.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/services/payment_service.dart)
-- Implement actual `Stripe.instance.presentPaymentSheet()` logic.
+#### [NEW] [notification_provider.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/providers/notification_provider.dart)
+- Manage a list of `NotificationModel` items.
+- Support "Mark as read" and "Clear all" logic.
 
-#### [NEW] [wallet_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/wallet_screen.dart)
-- A screen to show balance, transaction history, and "Add Money" button.
+#### [NEW] [notification_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/notification_screen.dart)
+- A clean, categorized list of messages.
+- Different icons for "Promotion", "Order", and "System" alerts.
 
----
-
-### Phase 4: Real-time Tracking & Reviews
-
-#### [MODIFY] [order_tracking_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/order_tracking_screen.dart)
-- Integrate `GoogleMap` widget to show rider position (simulated movement).
-
-#### [NEW] [review_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/review_screen.dart)
-- Add stars and text field for reviews.
-- Integrate Image Picker (simulated) for food photos.
-
----
-
-### Phase 5: Admin & Notifications
-
-#### [NEW] [admin_dashboard.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/admin_dashboard.dart)
-- A basic dashboard to view incoming orders and toggle dish availability.
+#### [MODIFY] [home_screen.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/home_screen.dart)
+- Add a Bell icon to the AppBar with a dynamic badge (e.g. "3") showing unread counts.
 
 ## Verification Plan
 
 ### Automated Tests
-- Extend widget tests to verify language switching.
-- Verify that customization data correctly reaches the checkout summary.
+- Test `NotificationProvider` for correct unread count logic.
+- Verify that `Main` chooses the correct starting screen based on the preference flag.
 
 ### Manual Verification
-1. **Language**: Toggle to Bangla in Settings and verify the Home tab label changes.
-2. **Customization**: Add "Extra Spicy" Biryani and check if it shows in the Cart.
-3. **Map**: Open tracking and see a marker representing the rider on a Toronto/Dhaka map.
-4. **Theme**: Switch to Dark Mode and ensure all text remains readable.
+1. **Fresh Launch**: Uninstall/Reset app and verify the Onboarding slides appear.
+2. **Scrolling**: Scroll the home menu and observe the "floating" movement of images inside the cards (Parallax).
+3. **Notifications**: Open the Notification screen, mark an item as read, and verify the badge on the Home screen updates.
+4. **Theme**: Verify that the new screens (Onboarding/Notifications) support both Light and Dark modes.

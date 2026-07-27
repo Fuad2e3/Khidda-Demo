@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import '../widgets/custom_button.dart';
 import '../providers/cart_provider.dart';
 import '../services/payment_service.dart';
-import 'order_tracking_screen.dart';
 import 'order_success_screen.dart';
+import '../utils/l10n.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -70,13 +70,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
+    final l10n = AppLocalizations.of(context)!;
     double subtotal = cart.totalAmount;
     double discountAmount = subtotal * _discount;
     double total = subtotal - discountAmount + 2.50;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Checkout'),
+        title: Text(l10n.translate('checkout')),
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
       ),
@@ -99,9 +100,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-            const Text(
-              'Order Summary',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              l10n.translate('order_summary'),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             Expanded(

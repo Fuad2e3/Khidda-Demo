@@ -28,16 +28,9 @@ class DishCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-                  child: Image.network(
-                    dish.imageUrl,
-                    height: 180,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      height: 180,
-                      color: Colors.grey[300],
-                      child: const Icon(Icons.fastfood, size: 50),
-                    ),
+                  child: AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: ParallaxImage(imageUrl: dish.imageUrl),
                   ),
                 ),
                 Positioned(
@@ -134,5 +127,81 @@ class DishCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class ParallaxImage extends StatelessWidget {
+  final String imageUrl;
+  const ParallaxImage({super.key, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Flow(
+      delegate: ParallaxFlowDelegate(
+        scrollable: Scrollable.of(context),
+        listItemContext: context,
+      ),
+      children: [
+        Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => Container(
+            color: Colors.grey[300],
+            child: const Icon(Icons.fastfood, size: 50),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ParallaxFlowDelegate extends FlowDelegate {
+  ParallaxFlowDelegate({
+    required this.scrollable,
+    required this.listItemContext,
+  }) : super(repaint: scrollable.position);
+
+  final ScrollableState scrollable;
+  final BuildContext listItemContext;
+
+  @override
+  BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) {
+    return BoxConstraints.tightFor(
+      width: constraints.maxWidth,
+    );
+  }
+
+  @override
+  void paintChildren(FlowPaintingContext context) {
+    // Calculate the position of this list item within the viewport.
+    final scrollableBox = scrollable.context.findRenderObject() as RenderBox;
+    final listItemBox = listItemContext.findRenderObject() as RenderBox;
+    final listItemOffset = listItemBox.localToGlobal(
+      listItemBox.size.centerLeft(Offset.zero),
+      ancestor: scrollableBox,
+    );
+
+    // Determine the percent position of this list item within the scrollable area.
+    final viewportDimension = scrollable.position.viewportDimension;
+    final scrollFraction = (listItemOffset.dy / viewportDimension).clamp(0.0, 1.0);
+
+    // Calculate the vertical alignment of the background based on the scroll percent.
+    final verticalAlignment = Alignment(0.0, scrollFraction * 2 - 1);
+
+    // Convert the background alignment into a pixel offset for painting purposes.
+    final backgroundSize = context.getChildSize(0)!;
+    final listItemSize = context.size;
+    final childRect = verticalAlignment.inscribe(backgroundSize, Offset.zero & listItemSize);
+
+    // Paint the background.
+    context.paintChild(
+      0,
+      transform: Transform.translate(offset: Offset(0.0, childRect.top)).transform,
+    );
+  }
+
+  @override
+  bool shouldRepaint(ParallaxFlowDelegate oldDelegate) {
+    return scrollable != oldDelegate.scrollable || listItemContext != oldDelegate.listItemContext;
   }
 }

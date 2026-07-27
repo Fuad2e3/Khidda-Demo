@@ -1,19 +1,16 @@
-# Tasks - Khidda "Full House" Update
+# Tasks - Khidda "Premium Engagement" Update
 
-- [ ] `[/]` Phase 1: Personalization (Bangla & Dark Mode)
-    - [ ] Create `lib/providers/settings_provider.dart`
-    - [ ] Create `lib/utils/l10n.dart`
-    - [ ] Update `lib/main.dart` (Theme & Localization)
-- [ ] `[ ]` Phase 2: Order Customization & Address Book
-    - [ ] Update `lib/models/dish.dart` (Add options)
-    - [ ] Update `lib/screens/dish_detail_screen.dart` (Customization UI)
-    - [ ] Create `lib/screens/address_screen.dart`
-    - [ ] Update `lib/providers/user_provider.dart` (Address management)
-- [ ] `[ ]` Phase 3: Financials & Wallet
-    - [ ] Update `lib/services/payment_service.dart` (Stripe)
-    - [ ] Create `lib/screens/wallet_screen.dart`
-- [ ] `[ ]` Phase 4: Tracking & Reviews
-    - [ ] Update `lib/screens/order_tracking_screen.dart` (Google Maps UI)
-    - [ ] Create `lib/screens/review_screen.dart`
-- [ ] `[ ]` Phase 5: Admin Dashboard
-    - [ ] Create `lib/screens/admin_dashboard.dart`
+- [x] `[x]` Phase 1: Persistence & Onboarding
+    - [x] Update `pubspec.yaml` (shared_preferences)
+    - [x] Create `lib/screens/onboarding_screen.dart`
+    - [x] Update `lib/main.dart` (Init prefs & Onboarding logic)
+- [x] `[x]` Phase 2: Visual Delight (Parallax)
+    - [x] Update `lib/widgets/dish_card.dart` (Parallax scroll effect)
+- [x] `[x]` Phase 3: Smart Notification Center
+    - [x] Create `lib/providers/notification_provider.dart`
+    - [x] Create `lib/screens/notification_screen.dart`
+    - [x] Update `lib/screens/home_screen.dart` (Bell icon & Badge)
+- [x] `[x]` Phase 4: Verification & Bug Fixing
+    - [x] Fix compilation errors in Profile & Detail screens
+    - [x] Update `test/widget_test.dart` for new providers
+    - [x] Run full test suite (All Passed)

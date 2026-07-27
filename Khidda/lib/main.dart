@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/login_screen.dart';
+import 'screens/onboarding_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'providers/cart_provider.dart';
 import 'providers/user_provider.dart';
 import 'providers/wishlist_provider.dart';
 import 'providers/settings_provider.dart';
+import 'providers/notification_provider.dart';
 import 'utils/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
+  final prefs = await SharedPreferences.getInstance();
+  final showOnboarding = prefs.getBool('showOnboarding') ?? true;
+
   // Initialize Firebase (Requires google-services.json/GoogleService-Info.plist)
   try {
     await Firebase.initializeApp();
@@ -27,14 +33,16 @@ void main() async {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => WishlistProvider()),
         ChangeNotifierProvider(create: (_) => SettingsProvider()),
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),
       ],
-      child: const KhiddaApp(),
+      child: KhiddaApp(showOnboarding: showOnboarding),
     ),
   );
 }
 
 class KhiddaApp extends StatelessWidget {
-  const KhiddaApp({super.key});
+  final bool showOnboarding;
+  const KhiddaApp({super.key, required this.showOnboarding});
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +103,7 @@ class KhiddaApp extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
       ),
-      home: const LoginScreen(),
+      home: showOnboarding ? const OnboardingScreen() : const LoginScreen(),
     );
   }
 }

@@ -37,7 +37,7 @@ class PromoSlider extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
-                    colors: [Colors.black.withOpacity(0.6), Colors.transparent],
+                    colors: [Colors.black.withValues(alpha: 0.6), Colors.transparent],
                   ),
                 ),
                 padding: const EdgeInsets.all(20),
@@ -95,7 +95,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 color: isSelected ? Colors.green : Colors.white,
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 5))
+                  BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 5))
                 ],
               ),
               child: Column(

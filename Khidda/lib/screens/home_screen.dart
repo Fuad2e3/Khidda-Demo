@@ -7,8 +7,10 @@ import '../widgets/shimmer_widgets.dart';
 import '../services/api_service.dart';
 import '../providers/cart_provider.dart';
 import 'checkout_screen.dart';
-import 'profile_screen.dart';
 import 'dish_detail_screen.dart';
+import 'notification_screen.dart';
+import '../providers/notification_provider.dart';
+import '../utils/l10n.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -98,13 +100,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('KHIDDA', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+        title: Text(l10n.translate('home').toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2)),
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
         centerTitle: true,
         actions: [
+          Consumer<NotificationProvider>(
+            builder: (_, notifications, __) => Badge(
+              label: Text(notifications.unreadCount.toString()),
+              isLabelVisible: notifications.unreadCount > 0,
+              child: IconButton(
+                icon: const Icon(Icons.notifications_none),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationScreen()));
+                },
+              ),
+            ),
+          ),
           Consumer<CartProvider>(
             builder: (_, cart, ch) => Badge(
               label: Text(cart.itemCount.toString()),
