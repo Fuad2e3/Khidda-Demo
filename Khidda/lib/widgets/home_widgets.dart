@@ -124,19 +124,37 @@ class _CategorySelectorState extends State<CategorySelector> {
   }
 }
 
-class HomeSearchBar extends StatelessWidget {
+class HomeSearchBar extends StatefulWidget {
   final Function(String) onChanged;
   const HomeSearchBar({super.key, required this.onChanged});
+
+  @override
+  State<HomeSearchBar> createState() => _HomeSearchBarState();
+}
+
+class _HomeSearchBarState extends State<HomeSearchBar> {
+  final _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: TextField(
-        onChanged: onChanged,
+        controller: _controller,
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
           hintText: 'Search for dishes...',
           prefixIcon: const Icon(Icons.search, color: Colors.green),
+          suffixIcon: _controller.text.isNotEmpty
+              ? IconButton(
+                  icon: const Icon(Icons.clear, color: Colors.grey),
+                  onPressed: () {
+                    _controller.clear();
+                    widget.onChanged('');
+                    setState(() {});
+                  },
+                )
+              : null,
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(

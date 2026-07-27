@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'feedback_screen.dart';
 
 class OrderTrackingScreen extends StatefulWidget {
@@ -10,6 +11,14 @@ class OrderTrackingScreen extends StatefulWidget {
 
 class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   int _currentStep = 1;
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(43.6532, -79.3832); // Toronto Center
+  final LatLng _riderPos = const LatLng(43.6500, -79.3800);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +30,42 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
       ),
       body: Column(
         children: [
+          SizedBox(
+            height: 250,
+            child: GoogleMap(
+              onMapCreated: _onMapCreated,
+              initialCameraPosition: CameraPosition(
+                target: _center,
+                zoom: 14.0,
+              ),
+              markers: {
+                Marker(markerId: const MarkerId('rider'), position: _riderPos, icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen)),
+                Marker(markerId: const MarkerId('home'), position: _center),
+              },
+            ),
+          ),
           Container(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
               children: [
-                const Icon(Icons.delivery_dining, size: 80, color: Colors.green),
-                const SizedBox(height: 16),
-                const Text(
-                  'Order #12345',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                const CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.green,
+                  child: Icon(Icons.person, color: Colors.white),
                 ),
-                Text(
-                  'Estimated Delivery: 20-30 mins',
-                  style: TextStyle(color: Colors.grey[600]),
+                const SizedBox(width: 16),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Rider: Tanvir Ahmed', style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text('Estimated: 12 mins', style: TextStyle(color: Colors.grey)),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.call, color: Colors.green),
+                  onPressed: () {},
                 ),
               ],
             ),

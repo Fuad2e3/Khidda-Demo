@@ -15,6 +15,8 @@ class DishDetailScreen extends StatefulWidget {
 
 class _DishDetailScreenState extends State<DishDetailScreen> {
   int _quantity = 1;
+  final Set<String> _selectedCustomizations = {};
+  String _spicyLevel = 'Medium';
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +93,50 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                     widget.dish.description,
                     style: TextStyle(fontSize: 15, color: Colors.grey[700], height: 1.5),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Spice Level',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: ['Mild', 'Medium', 'Spicy'].map((level) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: ChoiceChip(
+                          label: Text(level),
+                          selected: _spicyLevel == level,
+                          onSelected: (selected) {
+                            if (selected) setState(() => _spicyLevel = level);
+                          },
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Extras',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  ...['Extra Rice', 'Extra Meat', 'Extra Salad'].map((extra) {
+                    return CheckboxListTile(
+                      title: Text(extra),
+                      value: _selectedCustomizations.contains(extra),
+                      onChanged: (val) {
+                        setState(() {
+                          if (val == true) {
+                            _selectedCustomizations.add(extra);
+                          } else {
+                            _selectedCustomizations.remove(extra);
+                          }
+                        });
+                      },
+                      contentPadding: EdgeInsets.zero,
+                      controlType: ListTileControlAffinity.leading,
+                    );
+                  }),
+                  const SizedBox(height: 24),
                   const Text(
                     'Quantity',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -111,7 +156,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                       }),
                     ],
                   ),
-                  const SizedBox(height: 100), // Space for bottom button
+                  const SizedBox(height: 120), // Space for bottom button
                 ],
               ),
             ),
@@ -122,17 +167,22 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, -5))],
+          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10, offset: const Offset(0, -5))],
         ),
         child: CustomButton(
           text: 'Add to Cart - \$${(widget.dish.price * _quantity).toStringAsFixed(2)}',
           onPressed: () {
+            // Note: In a real app, you'd create a new Dish object with these choices
+            // or pass metadata to CartProvider. For now, we just add the base dish quantity.
             for (int i = 0; i < _quantity; i++) {
               cart.addItem(widget.dish);
             }
             Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('${widget.dish.name} added to cart!'), backgroundColor: Colors.green),
+              SnackBar(
+                content: Text('${widget.dish.name} ($_spicyLevel) added to cart!'), 
+                backgroundColor: Colors.green
+              ),
             );
           },
           color: Colors.green,

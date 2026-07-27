@@ -4,6 +4,8 @@ import '../providers/user_provider.dart';
 import '../services/auth_service.dart';
 import 'order_history_screen.dart';
 import 'wishlist_screen.dart';
+import 'address_screen.dart';
+import 'wallet_screen.dart';
 import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -65,12 +67,16 @@ class ProfileScreen extends StatelessWidget {
             _buildProfileItem(
               icon: Icons.location_on_outlined,
               title: 'Delivery Addresses',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressScreen()));
+              },
             ),
             _buildProfileItem(
               icon: Icons.payment,
-              title: 'Payment Methods',
-              onTap: () {},
+              title: 'Khidda Wallet',
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const WalletScreen()));
+              },
             ),
             _buildProfileItem(
               icon: Icons.settings_outlined,

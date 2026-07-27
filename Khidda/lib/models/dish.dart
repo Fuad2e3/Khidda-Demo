@@ -6,6 +6,7 @@ class Dish {
   final String imageUrl;
   final double rating;
   final bool isAvailable;
+  final List<String>? customizations;
 
   Dish({
     required this.id,
@@ -15,6 +16,7 @@ class Dish {
     required this.imageUrl,
     this.rating = 0.0,
     this.isAvailable = true,
+    this.customizations,
   });
 
   factory Dish.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Dish {
       imageUrl: json['imageUrl'],
       rating: json['rating']?.toDouble() ?? 0.0,
       isAvailable: json['isAvailable'] ?? true,
+      customizations: json['customizations'] != null ? List<String>.from(json['customizations']) : null,
     );
   }
 
@@ -38,6 +41,7 @@ class Dish {
       'imageUrl': imageUrl,
       'rating': rating,
       'isAvailable': isAvailable,
+      'customizations': customizations,
     };
   }
 }

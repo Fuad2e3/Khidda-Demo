@@ -1,15 +1,19 @@
-# Tasks - Khidda Ultimate Experience Update
+# Tasks - Khidda "Full House" Update
 
-- [x] `[x]` Phase 1: Navigation & Structure
-    - [x] Update `pubspec.yaml` (shimmer, lottie)
-    - [x] Create `lib/screens/main_screen.dart` (Bottom Nav)
-    - [x] Update `lib/screens/login_screen.dart` (Nav fix)
-- [x] `[x]` Phase 2: Premium UI Components
-    - [x] Create `lib/widgets/shimmer_widgets.dart`
-    - [x] Update `lib/screens/home_screen.dart` (Shimmer & AppBar)
-- [x] `[x]` Phase 3: New Essential Screens
-    - [x] Create `lib/screens/dish_detail_screen.dart`
-    - [x] Create `lib/screens/wishlist_screen.dart`
-- [x] `[x]` Phase 4: Feedback & Delighters
-    - [x] Create `lib/screens/order_success_screen.dart` (Lottie)
-    - [x] Update `lib/screens/checkout_screen.dart` (Order flow)
+- [ ] `[/]` Phase 1: Personalization (Bangla & Dark Mode)
+    - [ ] Create `lib/providers/settings_provider.dart`
+    - [ ] Create `lib/utils/l10n.dart`
+    - [ ] Update `lib/main.dart` (Theme & Localization)
+- [ ] `[ ]` Phase 2: Order Customization & Address Book
+    - [ ] Update `lib/models/dish.dart` (Add options)
+    - [ ] Update `lib/screens/dish_detail_screen.dart` (Customization UI)
+    - [ ] Create `lib/screens/address_screen.dart`
+    - [ ] Update `lib/providers/user_provider.dart` (Address management)
+- [ ] `[ ]` Phase 3: Financials & Wallet
+    - [ ] Update `lib/services/payment_service.dart` (Stripe)
+    - [ ] Create `lib/screens/wallet_screen.dart`
+- [ ] `[ ]` Phase 4: Tracking & Reviews
+    - [ ] Update `lib/screens/order_tracking_screen.dart` (Google Maps UI)
+    - [ ] Create `lib/screens/review_screen.dart`
+- [ ] `[ ]` Phase 5: Admin Dashboard
+    - [ ] Create `lib/screens/admin_dashboard.dart`

@@ -116,7 +116,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           itemBuilder: (ctx, i) {
                             final item = cart.items.values.toList()[i];
                             return ListTile(
-                              title: Text(item.dish.name, style: const TextStyle(fontWeight: FontWeight.w500)),
+                              contentPadding: EdgeInsets.zero,
+                              title: Text(
+                                item.dish.name, 
+                                maxLines: 1, 
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontWeight: FontWeight.w500),
+                              ),
                               subtitle: Text('Qty: ${item.quantity}'),
                               trailing: Text('\$${(item.dish.price * item.quantity).toStringAsFixed(2)}'),
                             );

@@ -163,22 +163,49 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 : SliverPadding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) => DishCard(
-                          dish: _filteredDishes[index],
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DishDetailScreen(dish: _filteredDishes[index]),
+                    sliver: _filteredDishes.isEmpty
+                        ? SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.all(32.0),
+                              child: Column(
+                                children: [
+                                  Icon(Icons.search_off, size: 80, color: Colors.grey[300]),
+                                  const SizedBox(height: 16),
+                                  const Text(
+                                    'No dishes found matching your search.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _searchQuery = '';
+                                        _selectedCategory = 'All';
+                                        _applyFilters();
+                                      });
+                                    },
+                                    child: const Text('Clear all filters'),
+                                  ),
+                                ],
                               ),
-                            );
-                          },
-                        ),
-                        childCount: _filteredDishes.length,
-                      ),
-                    ),
+                            ),
+                          )
+                        : SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) => DishCard(
+                                dish: _filteredDishes[index],
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DishDetailScreen(dish: _filteredDishes[index]),
+                                    ),
+                                  );
+                                },
+                              ),
+                              childCount: _filteredDishes.length,
+                            ),
+                          ),
                   ),
           ],
         ),
