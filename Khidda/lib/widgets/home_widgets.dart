@@ -36,15 +36,33 @@ class PromoSlider extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [Colors.black.withValues(alpha: 0.6), Colors.transparent],
+                    end: Alignment.center,
+                    colors: [Colors.black.withValues(alpha: 0.7), Colors.transparent],
                   ),
                 ),
                 padding: const EdgeInsets.all(20),
                 alignment: Alignment.bottomLeft,
-                child: const Text(
-                  'Special Offer: 20% OFF',
-                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Text(
+                        'Limited Time',
+                        style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Special Offer: 20% OFF',
+                      style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
             );
@@ -88,15 +106,23 @@ class _CategorySelectorState extends State<CategorySelector> {
               setState(() => selectedCategory = categories[index]['name']);
               widget.onCategorySelected(selectedCategory);
             },
-            child: Container(
-              width: 80,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: 90,
               margin: const EdgeInsets.only(right: 12),
               decoration: BoxDecoration(
                 color: isSelected ? Colors.green : Colors.white,
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: [
-                  BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 5))
+                  BoxShadow(
+                    color: isSelected ? Colors.green.withValues(alpha: 0.3) : Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  )
                 ],
+                border: Border.all(
+                  color: isSelected ? Colors.green : Colors.grey.withValues(alpha: 0.1),
+                ),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -104,13 +130,14 @@ class _CategorySelectorState extends State<CategorySelector> {
                   Icon(
                     categories[index]['icon'],
                     color: isSelected ? Colors.white : Colors.green,
+                    size: 28,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     categories[index]['name'],
                     style: TextStyle(
                       fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                       color: isSelected ? Colors.white : Colors.black87,
                     ),
                   ),
