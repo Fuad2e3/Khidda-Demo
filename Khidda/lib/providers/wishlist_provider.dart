@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/dish.dart';
 
 class WishlistProvider with ChangeNotifier {
   final Set<String> _wishlistIds = {};

@@ -71,7 +71,6 @@ class KhiddaApp extends StatelessWidget {
           primary: const Color(0xFF2E7D32),
           secondary: const Color(0xFFFFB300),
           surface: Colors.white,
-          background: const Color(0xFFF8F9FA),
         ),
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         scaffoldBackgroundColor: const Color(0xFFF8F9FA),

@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         actions: [
           Consumer<NotificationProvider>(
-            builder: (_, notifications, __) => Badge(
+            builder: (_, notifications, _) => Badge(
               label: Text(notifications.unreadCount.toString()),
               isLabelVisible: notifications.unreadCount > 0,
               child: IconButton(
