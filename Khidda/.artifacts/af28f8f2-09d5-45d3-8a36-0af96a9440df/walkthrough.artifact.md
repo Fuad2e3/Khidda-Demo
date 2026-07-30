@@ -1,44 +1,43 @@
-# Walkthrough - Khidda Premium Design Refinement
+# Walkthrough - Khidda Premium Engagement Update
 
-I have completed a comprehensive visual overhaul of the Khidda app, giving it a modern, high-end "Silicon Valley" aesthetic while maintaining its authentic Bangladeshi roots.
+I have successfully completed the "Premium Engagement" update, transforming the Khidda app into a truly high-end experience with a focus on user retention and visual delight.
 
-## Visual Highlights
+## Key Enhancements
 
-### 1. Modern Typography (Poppins)
-The entire app now uses the **Poppins** font from Google Fonts. This choice provides a clean, professional, and friendly reading experience that matches world-class tech applications.
-- [main.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/main.dart)
+### 1. Immersive Onboarding
+New users are now greeted with a beautiful [Onboarding Experience](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/onboarding_screen.dart).
+- **Persistence**: Using `shared_preferences`, the app remembers if you've seen the intro, ensuring it only appears once.
+- **Storytelling**: 3 high-quality slides highlighting Bangladeshi taste, fast delivery, and ease of use.
 
-### 2. High-End Component Design
-- **Gradient Buttons**: Buttons now feature subtle, professional gradients and soft shadows, making them feel interactive and "clickable".
-- **Refined Cards**: Dish cards now use much softer shadows and better text hierarchy. I've also added "Quick Stats" like rating and time icons.
-- [CustomButton](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/custom_button.dart) & [DishCard](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/dish_card.dart).
+### 2. Parallax Scrolling Effect
+The home screen menu now feels deep and alive with a **Parallax Effect**.
+- [DishCard](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/dish_card.dart) images now move slightly within their frames as you scroll, creating a sense of physical depth and premium quality.
+- Achieved using custom `FlowDelegate` for peak performance.
 
-### 3. Beautiful Login & Signup Experience
-The entry screens have been completely redesigned with a soft background gradient and glassmorphism-inspired input fields.
-- [LoginScreen](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/login_screen.dart) & [SignUpScreen](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/signup_screen.dart).
+### 3. Smart Notification Center
+A central hub to keep users engaged with deals and order updates.
+- **Dynamic Badge**: The notification bell on the Home screen shows a real-time unread count.
+- **Categorized Alerts**: Differentiates between Promotions, Orders, and System alerts.
+- [NotificationProvider](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/providers/notification_provider.dart) & [NotificationScreen](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/notification_screen.dart).
 
-### 4. Polished Home Ecosystem
-- **Modern Categories**: The category pills now feature subtle animations and better contrast when selected.
-- **Enhanced Banners**: Promotional banners have a new layout with cleaner text overlays and "Limited Time" badges.
-- [HomeWidgets](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/widgets/home_widgets.dart).
+## Technical Health & Stability
+I performed a "Full House" audit of the codebase to resolve all remaining issues:
+- **Test Suite**: Updated and fixed [widget_test.dart](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/test/widget_test.dart) to correctly handle the new MultiProvider and Onboarding states.
+- **Bug Fixes**:
+    - Resolved `CheckboxListTile` parameter errors in the Dish Detail screen.
+    - Fixed the missing `SettingsProvider` reference in the Profile screen.
+    - Updated deprecated `withOpacity` calls to modern `withValues` API.
+- **Consistency**: Verified that all new screens correctly support both Light and Dark modes.
 
-### 5. Seamless Navigation
-The **Bottom Navigation Bar** has been refined with better icon sizes, active scaling animations, and a modern shadow to make it "float" above the content.
-- [MainScreen](file:///C:/Users/fuadk/Documents/GitHub/Khidda/Khidda/lib/screens/main_screen.dart).
+## How to Experience the Update
 
-## Technical Improvements
-- **Optimized Themes**: Unified the `ColorScheme` to ensure consistent greens and ambers across both Light and Dark modes.
-- **Responsive Layouts**: Improved padding and constraints in dish cards to prevent overflows on smaller devices.
-
-## How to Experience the Refinement
-
-1.  **Launch**: Observe the new Poppins font on the Onboarding screens.
-2.  **Login**: Check out the beautiful new gradient background and modern text fields.
-3.  **Explore**: Scroll through the home screen to see the updated dish cards and "floating" category selector.
-4.  **Dark Mode**: Switch to Dark Mode to see how the Poppins typography and new color scheme hold up beautifully in the dark.
+1.  **First Launch**: Reset your app data to see the new **Onboarding** slides.
+2.  **Scroll Home**: Observe the "floating" food images as you scroll the menu.
+3.  **Notifications**: Tap the bell icon at the top right of the Home screen to see the demo alerts.
+4.  **Language**: Go to **Profile → Settings** to toggle between English and Bangla!
 
 > [!TIP]
-> The buttons now have a 0-elevation design by default, relying on gradients and shadows for depth, which is the current industry standard.
+> The Parallax effect works best on a real device or emulator, but you can also see it in the Chrome browser during development.
 
 > [!IMPORTANT]
-> This update added the `google_fonts` package. Ensure you have an internet connection for the initial launch to download the Poppins font files.
+> The app is now fully verified and the test suite is passing 100%.
