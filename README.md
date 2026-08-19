@@ -154,6 +154,6 @@ FIREBASE_ADMIN_SDK=path/to/firebase-sdk.json
 Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="center">
-  Developed with ❤️ by <b>Team Softece</b><br>
+  Developed with ❤️ by <b>Fuad</b><br>
   <i>Khidda</i>
 </p>
