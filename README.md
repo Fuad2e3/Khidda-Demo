@@ -15,7 +15,7 @@
 
 ---
 
-[Explore Features](#-key-features) • [Project Structure](#-project-structure) • [Tech Stack](#-tech-stack) • [Installation](#-installation--setup)
+[Explore Features](#-key-features) • [Project Structure](#-project-structure) • [Tech Stack](#-tech-stack)
 
 </div>
 
@@ -63,7 +63,6 @@ Khidda/
 │   │   ├── routes/             # RESTful API endpoints
 │   │   ├── models/             # MySQL schema definitions and queries
 │   │   └── middleware/         # JWT verification, CORS & rate limiters
-│   ├── .env.example
 │   └── package.json
 └── README.md
 ```
@@ -84,25 +83,6 @@ Khidda/
 
 ---
 
-## ⚙️ Installation & Setup
-
-### 1. Backend Setup
-```bash
-cd backend
-npm install
-cp .env.example .env
-npm start
-```
-
-### 2. Mobile App Setup
-```bash
-cd client
-flutter pub get
-flutter run
-```
-
----
-
 ## 🔌 Core API Endpoints
 
 | Method | Endpoint | Description |
@@ -120,8 +100,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <div align="center">
 
-**Developed with ❤️ by Fuad**  
-*Developed by Softece*  
-*Khidda*
+**Developed ❤️ by Softece**
 
 </div>
