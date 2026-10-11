@@ -3,88 +3,66 @@
 # 🥘 Khidda (খিদা)
 ### **"Deshi Sadh, Canada-r Kache" (Taste of Home, Close to Canada)**
 
-[![Platform](https://img.shields.io/badge/Platform-Flutter-blue?style=for-the-badge&logo=flutter)](https://flutter.dev/)
-[![Backend](https://img.shields.io/badge/Backend-Node.js-339933?style=for-the-badge&logo=nodedotjs)](https://nodejs.org/)
-[![API](https://img.shields.io/badge/API-Express.js-000000?style=for-the-badge&logo=express)](https://expressjs.com/)
-[![Database](https://img.shields.io/badge/Database-MySQL-4479A1?style=for-the-badge&logo=mysql)](https://www.mysql.com/)
-[![Payment](https://img.shields.io/badge/Payment-Stripe-6772E5?style=for-the-badge&logo=stripe)](https://stripe.com/)
+[![Platform](https://img.shields.io/badge/Platform-Flutter-blue?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev/)
+[![Language](https://img.shields.io/badge/Language-Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev/)
+[![Backend](https://img.shields.io/badge/Backend-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![API](https://img.shields.io/badge/API-Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Database](https://img.shields.io/badge/Database-MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Payment](https://img.shields.io/badge/Payment-Stripe-6772E5?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 **Bringing authentic Bangladeshi homemade flavors to the Bangladeshi diaspora in Canada.**
 
 ---
 
+[Explore Features](#-key-features) • [Project Structure](#-project-structure) • [Tech Stack](#-tech-stack) • [Installation](#-installation--setup)
+
 </div>
 
 ---
 
 ## 📖 Overview
-**Khidda** (meaning "hunger" or "craving" in Bengali) is a specialized cloud kitchen food delivery platform. It bridges the gap between traditional Bangladeshi home-cooked meals and the busy lifestyle of immigrants in Canada. By leveraging a "ghost kitchen" model, Khidda enables home chefs to share their culinary heritage while providing customers with the comfort of authentic, fresh, and high-quality food.
+**Khidda** (meaning "hunger" or "craving" in Bengali) is an artisanal cloud-kitchen food delivery ecosystem. It connects the authentic culinary heritage of Bangladeshi home-cooked delicacies with the busy lives of students and professionals living in Canada. Utilizing a distributed ghost-kitchen model, Khidda empowers passionate home chefs to monetize their recipes while giving customers fresh, hygienic, and nostalgic comfort food delivered directly to their doorstep.
 
 ---
 
 ## ✨ Key Features
 
-### 📱 Customer App
-- 🥗 **Authentic Menu:** Explore a wide variety of traditional Bangladeshi dishes.
-- 📍 **Real-time Tracking:** Monitor your order from preparation to delivery.
-- 💳 **Secure Payments:** Integrated Stripe gateway for seamless Canadian transactions.
-- 📅 **Scheduled Delivery:** Pre-order meals for special occasions or daily routines.
-- 💬 **Feedback System:** Rate and review dishes to help maintain quality.
+### 📱 Customer Mobile App
+- 🥗 **Authentic Deshi Menu:** Explore traditional Bengali culinary favorites from Kachchi Biryani to Bhorta platters.
+- 📍 **Live Order Journey:** Interactive tracking from kitchen preparation through packaging to driver dispatch.
+- 💳 **Seamless Canadian Payments:** Fully PCI-compliant payment pipeline powered by Stripe Canada.
+- 📅 **Scheduled Pre-Orders:** Plan ahead for weekend feasts, family gatherings, or meal prep plans.
+- 💬 **Verified Reviews & Ratings:** Honest community feedback ensuring consistently high culinary standards.
 
-### 🛡️ Admin Panel
-- 📊 **Dashboard:** Overview of daily sales, active orders, and revenue.
-- 📦 **Order Management:** Efficiently manage order flows from kitchen to dispatch.
-- 🥘 **Menu Control:** Update items, prices, and availability in real-time.
-- 👥 **User & Delivery Management:** Oversee customers and delivery personnel.
-
----
-
-## 📸 App Screenshots
-<p align="center">
-  <i>UI Previews coming soon...</i>
-</p>
-<p align="center">
-  <img src="https://via.placeholder.com/200x400?text=Login+Screen" width="200" alt="Login Screen">
-  <img src="https://via.placeholder.com/200x400?text=Home+Screen" width="200" alt="Home Screen">
-  <img src="https://via.placeholder.com/200x400?text=Order+Tracking" width="200" alt="Order Tracking">
-</p>
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-| :--- | :--- |
-| **Mobile App** | Flutter (Dart) |
-| **Backend** | Node.js + Express.js (REST API) |
-| **Database** | MySQL |
-| **Authentication** | Firebase Auth / JWT |
-| **Payment** | Stripe (Canada) |
-| **Deployment** | PM2 + VPS / Railway |
+### 🛡️ Admin & Kitchen Command Center
+- 📊 **Real-time Operations Dashboard:** Live revenue streams, order throughput, and inventory forecasting.
+- 📦 **Order Dispatch Board:** Kitchen-friendly kanban flow for order confirmation, prep status, and dispatching.
+- 🥘 **Dynamic Menu Control:** Update item availability, seasonal specials, and pricing instantly.
+- 👥 **Driver & Customer Management:** Automated routing, driver assignments, and live customer support.
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-Khidda-Demo/
-├── Khidda/                 # Flutter Customer App
+Khidda/
+├── client/                     # Flutter Customer Mobile App
 │   ├── lib/
-│   │   ├── models/         # Data structures
-│   │   ├── screens/        # UI Layers
-│   │   ├── services/       # API & Backend integration
-│   │   └── widgets/        # Reusable UI components
+│   │   ├── models/             # Data models (FoodItem, Order, User, Cart)
+│   │   ├── screens/            # UI Pages (Home, Menu, Checkout, Tracking)
+│   │   ├── services/           # REST API client & Stripe SDK integration
+│   │   └── widgets/            # Custom styled cards, buttons, badges
 │   └── pubspec.yaml
-├── Admin/                  # Admin Management App
-│   ├── src/                # Management features
-│   └── ...
-├── Backend/                # Node.js REST API
+├── admin/                      # Operations & Admin Dashboard
+│   ├── src/                    # Kitchen & dispatch management
+│   └── package.json
+├── backend/                    # Node.js + Express REST API Server
 │   ├── src/
-│   │   ├── controllers/    # Business logic
-│   │   ├── routes/         # API routing
-│   │   ├── models/         # Database queries
-│   │   └── middleware/     # Auth & Security
+│   │   ├── controllers/        # Order, Menu, and User business logic
+│   │   ├── routes/             # RESTful API endpoints
+│   │   ├── models/             # MySQL schema definitions and queries
+│   │   └── middleware/         # JWT verification, CORS & rate limiters
 │   ├── .env.example
 │   └── package.json
 └── README.md
@@ -92,68 +70,58 @@ Khidda-Demo/
 
 ---
 
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+| :--- | :--- |
+| **Mobile App** | Flutter (Dart SDK 3.x) |
+| **Backend** | Node.js + Express.js REST API |
+| **Database** | MySQL (Transactional Order & Catalogue Data) |
+| **Authentication** | Firebase Auth / Signed JWT Tokens |
+| **Payment Gateway** | Stripe (Interac / Credit Card Processing) |
+| **State Management** | Provider / BLoC |
+| **Process Manager** | PM2 on Linux VPS / Railway |
+
+---
+
 ## ⚙️ Installation & Setup
 
 ### 1. Backend Setup
 ```bash
-# Navigate to backend directory
-cd Backend
-
-# Install dependencies
+cd backend
 npm install
-
-# Setup environment variables
 cp .env.example .env
-
-# Start the server
 npm start
 ```
 
 ### 2. Mobile App Setup
 ```bash
-# Navigate to Khidda directory
-cd Khidda
-
-# Get Flutter packages
+cd client
 flutter pub get
-
-# Run the app
 flutter run
 ```
 
 ---
 
-## 🔑 Environment Variables
-Create a `.env` file in the `Backend` directory:
-```env
-PORT=3000
-DB_HOST=localhost
-DB_USER=root
-DB_PASS=your_secure_password
-DB_NAME=khidda_db
-JWT_SECRET=your_jwt_secret_key
-STRIPE_SECRET_KEY=sk_test_...
-FIREBASE_ADMIN_SDK=path/to/firebase-sdk.json
-```
-
----
-
-## 🔌 API Endpoints
+## 🔌 Core API Endpoints
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `POST` | `/api/auth/login` | Secure user authentication |
-| `GET` | `/api/menu` | List all available dishes |
-| `POST` | `/api/orders` | Place a new food order |
-| `GET` | `/api/orders/status` | Track active order progress |
+| `POST` | `/api/auth/login` | Secure customer & chef authentication |
+| `GET` | `/api/menu` | List active menu items and specials |
+| `POST` | `/api/orders` | Place a new culinary order |
+| `GET` | `/api/orders/:id/track` | Live delivery location and status |
+| `POST` | `/api/payments/create-intent` | Stripe payment sheet initialization |
 
 ---
 
 ## 📄 License
-
 Distributed under the MIT License. See `LICENSE` for more information.
 
-<p align="center">
-  Developed with ❤️ by <b>Fuad</b><br>
-  <i>Khidda</i>
-</p>
+<div align="center">
+
+**Developed with ❤️ by Fuad**  
+*Developed by Softece*  
+*Khidda*
+
+</div>
